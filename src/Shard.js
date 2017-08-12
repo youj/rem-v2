@@ -126,7 +126,7 @@ class Shard {
             if (ms > 100) {
                 dogstatsd.increment(`${stat}.blocks`);
             }
-            console.log('Shard:' + this.id + ' BLOCKED FOR %sms', ms | 0);
+            //console.log('Shard:' + this.id + ' BLOCKED FOR %sms', ms | 0);
         });
         this.initClient();
         this.bot.connect().then(() => {

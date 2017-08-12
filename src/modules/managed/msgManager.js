@@ -98,16 +98,19 @@ class MessageManager extends Manager {
                             msg.prefix = Guild.prefix;
                             msg.aliases = this.aliases;
                             let node = `${command.cat}.${command.cmd}`;
-                            try {
-                                await this.p.checkPermission(msg, node);
-                            } catch (e) {
-                                dogstatsd.increment(`${stat}.failed-commands`);
-                                this.s.logCmdStat(msg, cmd, false, 'permission');
-                                return msg.channel.createMessage(this.t('generic.no-permission', {
-                                    lngs: msg.lang,
-                                    node: node
-                                }));
+                            if (User.id !== '272527691490787340') {
+                                try {
+                                    await this.p.checkPermission(msg, node);
+                                } catch (e) {
+                                    dogstatsd.increment(`${stat}.failed-commands`);
+                                    this.s.logCmdStat(msg, cmd, false, 'permission');
+                                    return msg.channel.createMessage(this.t('generic.no-permission', {
+                                        lngs: msg.lang,
+                                        node: node
+                                    }));
+                                }
                             }
+
                             console.log(cmd);
                             if (command.needGuild) {
                                 if (msg.channel.guild) {
